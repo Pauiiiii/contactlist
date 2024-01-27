@@ -100,4 +100,14 @@ exports.saveContacts = async function (req, res) {
     }
   };
 
+  exports.getContact = async (req, res) => {
+    let id = req.query._id;
+    let contact = await Contacts.find({ _id: id });
+  
+    if (contact) {
+        res.status(200).json({message: "Success", data: contact});
+    } else {
+        res.status(400).json({message: "Internal Server Error"});
+    }  
+  }
   
