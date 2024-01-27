@@ -104,7 +104,6 @@ exports.saveContacts = async function (req, res) {
   exports.getContact = async (req, res) => {
     try {
       let id = req.query._id;
-      console.log("id", req.query._id);
       let contact = await Contacts.find({ _id: id});
     
       if (contact) {
