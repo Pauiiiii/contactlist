@@ -1,4 +1,5 @@
 const {Contacts} = require("../model/contact.model")
+const mongoose = require("mongoose")
 
 exports.getContacts = async (req, res) => {
     let contactList = await Contacts.find({});
@@ -101,13 +102,20 @@ exports.saveContacts = async function (req, res) {
   };
 
   exports.getContact = async (req, res) => {
-    let id = req.query._id;
-    let contact = await Contacts.find({ _id: id });
-  
-    if (contact) {
-        res.status(200).json({message: "Success", data: contact});
-    } else {
-        res.status(400).json({message: "Internal Server Error"});
-    }  
+    try {
+      let id = req.query._id;
+      console.log("id", req.query._id);
+      let contact = await Contacts.find({ _id: id});
+    
+      if (contact) {
+          res.status(200).json({message: "Success", data: contact});
+      } else {
+          res.status(400).json({message: "Internal Server Error"});
+      }    
+    } catch(err) {
+      console.log(err);
+      res.status(500).json({message: "Internal Server Error"});
+    }
   }
+  
   
